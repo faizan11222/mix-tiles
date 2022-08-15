@@ -1,0 +1,79 @@
+.screen2_navbar{
+    box-shadow: 1px 0px 2px 2px rgba(0, 0, 0, 0.116);
+    height: 55px;
+}
+.screen_2_body{
+    width: 180px;
+    height: 180px;
+    border-radius: 150px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.151);
+}
+
+.screen_2_body_content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.screen2_upload_section{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.445);
+}
+.screen2_upload_section, .list_style{
+    border-radius: 25px;
+    width: 500px;
+}
+
+
+
+
+.custom-file-input {
+    color: transparent;
+  }
+  .custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input::before {
+    content: 'Upload Photos';
+    color: black;
+    display: inline-block;
+    padding: 5px 8px;
+    outline: none;
+    cursor: pointer;
+    font-size: 11pt;
+    width: 100%;
+  }
+ .section_2_img_frame{
+    width: 300px;
+    height: 300px;
+    border: 3px solid #ccc;
+    background: #eee;
+    margin: auto;
+    border: 20px black solid;
+    overflow: hidden;
+ }
+.section_2_img_frame2{
+    width: auto;
+    height: 100%;
+    border: 3px solid #ccc;
+    background: #eee;
+    margin: auto;
+    border: 20px rgb(255, 255, 255) solid;
+    overflow: hidden;
+
+
+}
+  .btn-remove{
+    border: 0;
+    background-color: transparent;
+ 
+    margin-left: -30px
+  }
