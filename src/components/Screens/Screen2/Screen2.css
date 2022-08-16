@@ -19,6 +19,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
 }
 .screen2_upload_section{
     position: absolute;
@@ -31,10 +32,6 @@
     border-radius: 25px;
     width: 500px;
 }
-
-
-
-
 .custom-file-input {
     color: transparent;
   }
@@ -56,10 +53,28 @@
     height: 300px;
     border: 3px solid #ccc;
     background: #eee;
-    margin: auto;
     border: 20px black solid;
-    overflow: hidden;
+    z-index: 10;
  }
+ .reactEasyCrop_Container {
+  position: fixed !important;
+  margin: 68px 40px 40px 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reactEasyCrop_CropArea {
+  height: 320px !important;
+  width: 300px !important;
+}
+
 .section_2_img_frame2{
     width: auto;
     height: 100%;
@@ -68,12 +83,106 @@
     margin: auto;
     border: 20px rgb(255, 255, 255) solid;
     overflow: hidden;
-
-
 }
   .btn-remove{
     border: 0;
     background-color: transparent;
- 
     margin-left: -30px
   }
+.screen_2_editing_section{
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  width: 300px;
+  align-items: center;
+}
+
+.screen_2_select_filter_div{
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  width: 600px;
+  height: 190px;
+  border-radius: 14px;
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.205);
+  background-color: white;
+  z-index: 2;
+}
+.screen_2_select_filter_div .img_filter{
+  height: 70px;
+  width: 70px;
+  background-color: grey;
+
+  
+}
+.screen_2_select_filter_div .scroll_x{
+  overflow-x: scroll;
+  
+}
+ ::-webkit-scrollbar {
+  width: 2px;
+  height: 7px;
+  position: absolute;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  padding: -20px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #747474; 
+  border-radius: 10px;
+  cursor: grab;
+
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #747474b2; 
+}
+
+.screen_2_select_size_div {
+  position: absolute;
+  bottom: 13%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  width: 900px;
+  border-radius: 14px;
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.205);
+  background-color: white;
+}
+.add_more_imgs{
+  background-color: #ffffff;
+  right: 5%;
+  position: absolute;
+  border-radius: 100%;
+  bottom: 15%;
+  color: #1976d2;
+  border: 0;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.185);
+  padding: 10px;
+
+}
+.checkOut_bar{
+  position: absolute;
+  bottom: 0%;
+  height: 100px;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 10px 0 5px 1px rgba(0, 0, 0, 0.219);
+}
+.checkOut_btn{
+  background-color: #1976d2;
+  width: 20%;
+  height: 65%;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  border-radius: 9px;
+  border: 0;
+  z-index: -1;
+  
+
+}

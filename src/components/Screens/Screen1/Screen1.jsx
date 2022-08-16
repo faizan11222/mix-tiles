@@ -2,6 +2,7 @@ import React from "react";
 import "./screen1.css";
 import { Link } from "react-router-dom";
 import {useState} from 'react'
+
 const Screen1 = () => {
   const [div1, setdiv1] = useState(true);
   const [div2, setdiv2] = useState(false);
@@ -16,23 +17,23 @@ const Screen1 = () => {
       <div  className="text-center who_for_parent">
         <p className="text-light fw-ligth display-6">Who's it for?</p>
         <div class="containerr">
-          <div class="left-div ">
+          <div class="left-div global_hover" onClick={()=>setdiv1(false) & setdiv2(true)}>
             <div className=" p-4 m-4 text-center outer_container_card" style={{float:"right"}}>
               <div className="inner_card_div"></div>
               
               <h4  className="text-primary mt-3">
-                <span className="global_hover" onClick={()=>setdiv1(false) & setdiv2(true)}>For myself</span>
+                <span>For myself</span>
               </h4>
               
               <p className="text-muted ">Lorem ipsum dolor, sit</p>
             </div>
           </div>
-          <div class="right-div">
+          <div class="right-div global_hover" onClick={()=>setdiv1(false) & setdiv2(true)}>
           <div className=" p-4 m-4 text-center outer_container_card" >
           <div className="inner_card_div"></div>
         
           <h4 className="text-primary mt-3">
-            <span className="global_hover" onClick={()=>setdiv1(false) & setdiv2(true)}>For someone else</span>
+            <span >For someone else</span>
           </h4>
 
           <p className="text-muted ">Amit concepeto</p>

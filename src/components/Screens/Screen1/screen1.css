@@ -36,7 +36,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 130px;
-    height: 180px;
+    height: auto;
     
 }
 .containerr {
@@ -44,6 +44,18 @@
     grid-template-columns: minmax(50%, 50%) minmax(50%, 50%);
     grid-column-gap: 30px;
 }
+@media  (max-width:800px){
+   .containerr {
+    display: inline-table;
+    grid-template-columns: minmax(50%, 50%) minmax(50%, 50%);
+    grid-column-gap: 0px;
+
+   }.right-div{
+    margin-top: 400px;
+}
+
+}
+
 .inner_card_div{
     background-color: #1976d2;
     height: 190px;
