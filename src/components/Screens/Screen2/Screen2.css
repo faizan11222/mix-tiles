@@ -12,6 +12,7 @@
     left: 50%;
     transform: translate(-50%, -70%);
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.151);
+    display: block;
 }
 
 .screen_2_body_content{
@@ -20,6 +21,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+    
 }
 .screen2_upload_section{
     position: absolute;
@@ -27,11 +29,14 @@
     left: 50%;
     transform: translate(-50%, -0%);
     box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.445);
+    display: flex;
 }
 .screen2_upload_section, .list_style{
     border-radius: 25px;
     width: 500px;
 }
+
+
 .custom-file-input {
     color: transparent;
   }
@@ -48,6 +53,33 @@
     font-size: 11pt;
     width: 100%;
   }
+  .add_more_imgs{
+    background-image: url("https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/plus-512.png");
+    background-size: cover;
+   transition-duration: 0.2s;
+  }
+  .add_more_imgs:hover{
+  transform: scale(1.09);
+  transition-duration: 0.2s;
+  }
+.custom-file-input2 {
+    color: transparent;
+    width: 30px;
+  }
+  .custom-file-input2::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input2::before {
+    content: '';
+    color: black;
+    outline: none;
+    cursor: pointer;
+    font-size: 11pt;
+    width: 0px;
+  }
+
+
+
  .section_2_img_frame{
     width: 300px;
     height: 300px;
