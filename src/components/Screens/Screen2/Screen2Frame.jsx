@@ -3,7 +3,6 @@ import "./Screen2.css";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
 import ListIcon from "@mui/icons-material/List";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import AddIcon from "@mui/icons-material/Add";
@@ -11,10 +10,16 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Link } from "react-router-dom";
+import ClearIcon from '@mui/icons-material/Clear';
 import Cropper from "react-easy-crop";
 import ImageIcon from "@mui/icons-material/Image";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
+import HomeIcon from '@mui/icons-material/Home';
+import PaymentIcon from '@mui/icons-material/Payment';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import CreditCardInput from 'react-credit-card-input';
+
 const Screen2Frame = () => {
   const filterArr = [
     {
@@ -42,31 +47,30 @@ const Screen2Frame = () => {
 
   const sizesArr = [
     {
-      size:'8"x 8"',
+      size: '8"x 8"',
       price: "17",
       discount: "12 for $99",
-      price_actual: "204"
+      price_actual: "204",
     },
     {
-      size:'8"x 11"',
+      size: '8"x 11"',
       price: "23",
       discount: "9 for $155",
-      price_actual: "207"
+      price_actual: "207",
     },
     {
-      size:'11"x 8"',
+      size: '11"x 8"',
       price: "23",
       discount: "9 for $155",
-      price_actual: "207"
+      price_actual: "207",
     },
     {
-      size:'12"x 12"',
+      size: '12"x 12"',
       price: "35",
       discount: "6 for $155",
-      price_actual: "300"
+      price_actual: "300",
     },
-    
-  ]
+  ];
 
   const [state, setState] = React.useState({
     left: false,
@@ -77,6 +81,9 @@ const Screen2Frame = () => {
   const [zoom, setZoom] = useState(1);
   const [selectStyle, setselectStyle] = useState(false);
   const [selectSize, setselectSize] = useState(false);
+  const [addAddressPopup, setaddAddressPopup] = useState(false);
+  const [addPaymentMethodPopup, setaddPaymentMethodPopup] = useState(false);
+  const [creditCardMethod, setcreditCardMethod] = useState(false);
 
   const onCropComplete = React.useCallback((croppedArea, croppedAreaPixels) => {
     console.log(croppedArea, croppedAreaPixels);
@@ -121,12 +128,50 @@ const Screen2Frame = () => {
 
   const list2 = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 440 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <h1>Drawer 2</h1>
+      <div className="container  p-3">
+        <h2 className="fw-bolder mt-3 mx-3">Checkout</h2>
+        <div className="check_out_list_parent">
+          <ul className="list_check_out">
+            <li className="mb-4 global_hover" onClick={()=> setaddAddressPopup(true)}  > <HomeIcon className="mb-1 mx-2" fontSize="medium" /> Add Address</li>
+            <li className="mb-4 global_hover" onClick={()=>setaddPaymentMethodPopup(true)}> <PaymentIcon className="mb-1 mx-2" fontSize="medium"  /> Add Payment Method</li>
+            <li className="mb-4 text-dark"> <CardGiftcardIcon className="mb-1 mx-2" fontSize="medium" /> Add Gift Note</li>
+          </ul>
+        </div>
+        <hr/>
+        <div>
+        <div className="mb-4 row mx-1">
+          <div className="col-2 text-primary mt-1"><CardGiftcardIcon className="mb-1 mx-2 fs-1 "  /></div>
+          <div className="col-8">
+            <p className="m-0 p-0">Promo: 12 (8”X8”) Tiles For $99</p>
+            <p className="text-primary m-0 p-0">Add 10 tiles to get the deal!</p>
+          </div>
+            <p className="col-2 mt-2 text-muted " style={{ textDecoration:"underline" }}>cancle</p>
+        </div>
+        <hr/>
+        <div className="px-4" >
+          <div className="d-flex justify-content-between">
+            <p>2 tiles,8”X8”</p>
+            <p>$34</p>
+          </div>
+          <div className="d-flex justify-content-between">
+            <p>Shipping</p>
+            <p>Free</p>
+          </div>
+          <div className="d-flex justify-content-between fw-bolder">
+            <p>Total</p>
+            <p>$34</p>
+          </div>
+        </div>
+        <div className="p-3">
+        <button className="btn btn-primary w-100  btn-lg p-2">Place Order</button>
+        </div>
+        </div>
+      </div>
     </Box>
   );
 
@@ -157,24 +202,7 @@ const Screen2Frame = () => {
           <h4>MIXTILES</h4>
         </div>
         <div>
-          {["right"].map((anchor) => (
-            <React.Fragment key={anchor}>
-              <Button onClick={toggleDrawer(anchor, true)}>
-                {" "}
-                <span>
-                  <TextsmsIcon className="text-dark " fontSize="large" />{" "}
-                </span>
-              </Button>
-              <SwipeableDrawer
-                anchor={anchor}
-                open={state[anchor]}
-                onClose={toggleDrawer(anchor, false)}
-                onOpen={toggleDrawer(anchor, true)}
-              >
-                {list2(anchor)}
-              </SwipeableDrawer>
-            </React.Fragment>
-          ))}
+        <TextsmsIcon className="text-dark mx-3  " fontSize="large" />{" "}
         </div>
       </div>
 
@@ -238,13 +266,13 @@ const Screen2Frame = () => {
         </div>
       )}
 
-      {
-        selectedImage !== null &&(
-          <div >
-            <button className="add_more_imgs"><AddIcon fontSize="large" /></button>
-          </div>
-        )
-      }
+      {selectedImage !== null && (
+        <div>
+          <button className="add_more_imgs">
+            <AddIcon fontSize="large" />
+          </button>
+        </div>
+      )}
 
       {selectedImage === null && upload && (
         <div className="screen2_upload_section">
@@ -304,7 +332,7 @@ const Screen2Frame = () => {
               class="btn  dropdown-toggle"
               type="button"
               style={{ backgroundColor: "#FEFFFF" }}
-              onClick={()=> setselectSize(true)}
+              onClick={() => setselectSize(true)}
             >
               <AspectRatioIcon fontSize="medium" />{" "}
               <span className="mx-2 fw-bold">8"x 8"</span>
@@ -335,41 +363,145 @@ const Screen2Frame = () => {
           </div>
         </div>
       )}
-{
-selectSize &&(  
+      {selectSize && (
         <div className="screen_2_select_size_div container ">
           <div className="d-flex justify-content-between mt-3 mx-3">
             <h6>Select Size</h6>
-            <h6 className="text-primary global_hover" onClick={()=> setselectSize(false)}>Done</h6>
+            <h6
+              className="text-primary global_hover"
+              onClick={() => setselectSize(false)}
+            >
+              Done
+            </h6>
           </div>
 
           <div className="d-flex scroll_x ">
-{
-  sizesArr.map((arr)=> (
-       <div className="card mt-3 mb-3 text-primary global_hover" style={{ width: "15rem", borderRadius:"0px" }}>
-          <img style={{height:"230px"}} src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="Card image cap" />
-          <div className="card-body">
-          <p class="card-text fw-bold" style={{margin:"0", padding:"0"}}>{arr.size}</p>
-          <p class="card-text" style={{margin:"0", padding:"0"}}>{arr.price} each, {arr.discount} <del>${arr.price_actual}</del></p>
+            {sizesArr.map((arr) => (
+              <div
+                className="card mt-3 mb-3 text-primary global_hover"
+                style={{ width: "15rem", borderRadius: "0px" }}
+              >
+                <img
+                  style={{ height: "230px" }}
+                  src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                  alt="Card image cap"
+                />
+                <div className="card-body">
+                  <p
+                    class="card-text fw-bold"
+                    style={{ margin: "0", padding: "0" }}
+                  >
+                    {arr.size}
+                  </p>
+                  <p class="card-text" style={{ margin: "0", padding: "0" }}>
+                    {arr.price} each, {arr.discount}{" "}
+                    <del>${arr.price_actual}</del>
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
- ))
-}
+      )}
+      {/* Check out bar=============================================================== */}
+      {selectedImage !== null && (
+        <div className="checkOut_bar text-center">
+          <button className="checkOut_btn mt-3">
+          {["right"].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button className="text-light" onClick={toggleDrawer(anchor, true)}>
+                {" "}
+                 Checkout
+              </Button>
+              <SwipeableDrawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+                onOpen={toggleDrawer(anchor, true)}
+              >
+                {list2(anchor)}
+              </SwipeableDrawer>
+            </React.Fragment>
+          ))}
+          </button>
+        </div>
+      )}
 
-        </div>
-        </div>
-)
-}
-{/* Check out bar=============================================================== */}
-{
-selectedImage !== null &&(
-<div className="checkOut_bar text-center">
-  <button className="checkOut_btn mt-3">Checkout</button>
-</div>
- )}  
+      {/* ===============================Chunk Checkout======================================== */}
+
+
+      {/* ==============================Add Address Popup ====================================== */}
+      <div>
+        {
+          addAddressPopup && (
+            <div className="add_address_popup">
+              <div className="d-flex justify-content-between container px-3 mt-3 fw-bolder">
+                <div className="text-muted global_hover" onClick={()=> setaddAddressPopup(false)}><ClearIcon/></div>
+                <div>Add Address</div>
+                <div className="text-primary global_hover" >Done</div>
+              </div>
+              <hr/>
+              <div className="mx-5  address_form px-4">
+                <span>EMAIL: </span><input className=""/>
+                <hr/>
+                <span>FULL NAME: </span><input className=""/>
+                <hr/>
+                <span>ADDRESS: </span><input className=""/>
+                <hr/>
+                <span>ADDRESS 2: </span><input className=""/>
+                <hr/>
+                <span>CITY: </span><input className=""/>
+                <hr/>
+                <span>STATE: </span><input className=""/>
+                <hr/>
+                <span>ZIP CODE: </span><input className=""/>
+                <hr/>
+                <span >COUNTRY:</span><input className=""/>
+              </div>
+            </div>
+          )
+        }
+       
+      </div>
+
+      {/* =====================Add payment method popup================================= */}
+      {
+        addPaymentMethodPopup && (
+          <div>
+            <div className="add_payment_popup_parent">
+              <p className="global_hover"><CancelIcon  style={{ position:"absolute", marginTop:"-18px",marginLeft:"-18px" }}  onClick={()=>setaddPaymentMethodPopup(false)}/> </p>
+              <div className="m-4 global_hover" onClick={()=> setcreditCardMethod(true)} >
+                <p className="fw-bold" ><AddIcon className="mx-3" /> Add Credit Card</p>
+              </div>
+              <hr/>
+              <div className="m-4 global_hover">
+                <p className="fw-bold" ><PaymentsIcon className="mx-3" />Use Paypal</p>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {
+        creditCardMethod && (
+          <div className="credit_card_popup_parent">
+            <div className="d-flex justify-content-between container px-3 mt-3 fw-bolder">
+              <div></div>
+              <div>Card Details</div>
+              <div className="text-primary global_hover"  onClick={()=> setcreditCardMethod(false) & setaddPaymentMethodPopup(false)}>Done</div>
+            </div>
+            <hr/>
+
+            <div>
+             <CreditCardInput
+            fieldClassName="input"
+            /></div>
+           
+          </div>
+        )
+      }
 
     </div>
-
   );
 };
 

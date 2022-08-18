@@ -23,7 +23,7 @@
 }
 .screen2_upload_section{
     position: absolute;
-    bottom: 10%;
+    bottom: 4%;
     left: 50%;
     transform: translate(-50%, -0%);
     box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.445);
@@ -183,6 +183,97 @@
   border-radius: 9px;
   border: 0;
   z-index: -1;
+}
+
+.check_out_list_parent{
+  margin-top: 35px;
+}
+.check_out_list_parent .list_check_out{
+  list-style: none;
+  font-weight: 600;
+  color: #1976d2;
+  font-size: 17px;
+  padding-left: 13px;
+}
+
+.add_address_popup{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.205);
+  height: auto;
+  width: 600px;
+  background-color: white;
+  border-radius: 15px;
+  font-weight: bold;
   
+}
+.address_form{
+  background-color:#7474741a ;
+  padding-top: 20px ;
+  padding-bottom: 20px ;
+  border-radius: 15px;
+  margin-bottom: 18px;
+}
+.address_form input{
+  float: right;
+  height: 52px;
+  width: 77%;
+  margin-top: -14px;
+  background-color: transparent;
+  border: 0 ;
+}
+.address_form input:focus  {
+  outline: none !important;
+  font-size: large;
 
 }
+.address_form span{
+  padding-top: 20px;
+}
+
+
+/* Addpayment popup */
+
+.add_payment_popup_parent{
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.205);
+  height: auto;
+  width: 600px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.credit_card_popup_parent{
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.205);
+  height: 400px;
+  width: 600px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
