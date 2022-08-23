@@ -19,8 +19,17 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import {Link} from 'react-router-dom'
 //Imported components
 import Screen1 from './Screens/Screen1/Screen1';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
+import Signin from "./Screens/Auth/Signin";
+import Signup from "./Screens/Auth/Signup";
 
 const drawerWidth = 240;
 
@@ -89,7 +98,7 @@ export default function PersistentDrawerRight() {
       <AppBar position="" open={open}>
         <Toolbar>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-          < ArrowBackIosNewIcon/>
+          <Link to="/signin" >< ArrowBackIosNewIcon/></Link>
           </Typography>
           <IconButton
             color="inherit"
@@ -103,17 +112,9 @@ export default function PersistentDrawerRight() {
         </Toolbar>
       </AppBar>
 
+          
           <Screen1/>
 
-
-      {/* <Main open={open}>
-        <DrawerHeader />
-        <Typography >
-
-
-
-        </Typography>
-      </Main> */}
 
 
       <Drawer
@@ -135,30 +136,10 @@ export default function PersistentDrawerRight() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+         <h3><Link to="/signin">Sign in</Link></h3>
+         <h3><Link to="/signup">Sign up</Link></h3>
         </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+       
       </Drawer>
     </Box>
      </div>
