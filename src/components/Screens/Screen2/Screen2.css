@@ -21,8 +21,23 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+    align-content: flex-start;
     
 }
+/* .screen_2_body2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+}
+.screen_2_body2_content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    align-content: flex-start;  
+} */
 .screen2_upload_section{
     position: absolute;
     bottom: 4%;
@@ -85,7 +100,7 @@
     height: 300px;
     border: 3px solid #ccc;
     background: #eee;
-    border: 20px black solid;
+    border: 20px #F7F7F7 solid;
     z-index: 10;
  }
  .reactEasyCrop_Container {
@@ -113,7 +128,7 @@
     border: 3px solid #ccc;
     background: #eee;
     margin: auto;
-    border: 20px rgb(255, 255, 255) solid;
+    border: 20px #F7F7F7 solid;
     overflow: hidden;
 }
   .btn-remove{

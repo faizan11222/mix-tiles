@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Screen2.css";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
@@ -18,78 +18,119 @@ import HomeIcon from "@mui/icons-material/Home";
 import PaymentIcon from "@mui/icons-material/Payment";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import axios from "axios";
 import App from "./Payment/App";
 const Screen2Frame = () => {
+ 
 
+  
 
-
-  const filterArr = [
-    {
-      key: "Classic",
-    },
-    {
-      key: "Ever",
-    },
-    {
-      key: "Bold",
-    },
-    {
-      key: "Clean",
-    },
-    {
-      key: "Edge",
-    },
-    {
-      key: "Lens",
-    },
-    {
-      key: "Beach",
-    },
-  ];
-
-  const sizesArr = [
-    {
-      size: '8"x 8"',
-      price: "17",
-      discount: "12 for $99",
-      price_actual: "204",
-    },
-    {
-      size: '8"x 11"',
-      price: "23",
-      discount: "9 for $155",
-      price_actual: "207",
-    },
-    {
-      size: '11"x 8"',
-      price: "23",
-      discount: "9 for $155",
-      price_actual: "207",
-    },
-    {
-      size: '12"x 12"',
-      price: "35",
-      discount: "6 for $155",
-      price_actual: "300",
-    },
-  ];
 
   const [state, setState] = React.useState({
     left: false,
   });
   const [upload, setupload] = useState(false);
   const [selectedImage, setSelectedImage] = useState([]);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
   const [selectStyle, setselectStyle] = useState(false);
   const [selectSize, setselectSize] = useState(false);
   const [addAddressPopup, setaddAddressPopup] = useState(false);
   const [addPaymentMethodPopup, setaddPaymentMethodPopup] = useState(false);
   const [creditCardMethod, setcreditCardMethod] = useState(false);
-  const [sections, setsections] = useState([]);
+  const [allFrames, setallFrames] = useState([]);
+  const [allFrameSizes, setallFrameSizes] = useState([]);
 
-  const onCropComplete = React.useCallback((croppedArea, croppedAreaPixels) => {
+  useEffect(()=> {
+    axios
+    .get("http://localhost:5000/api/v1/size/",{
+      headers: {
+        "x-auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmY0ZjhiZjM4NmZjMmRiMTdjNDVlNzgiLCJ0eXBlIjoiQ1VTVE9NRVIiLCJpYXQiOjE2NjEzNDAyNTcsImV4cCI6MTY2MTM4NjI1N30.8g-9Cki6SPC8Ljq4tdTpph4ffh70mlF99poAHQCBEwA`,
+      },
+    })
+    .then((res)=>{
+      setallFrameSizes(res.data.sizes)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  },[]) 
+  
+
+
+
+  const [authToken, setauthToken] = useState('');
+  useEffect(() => {
+    const items = localStorage.getItem('jwt-Token');
+    if (items) {
+      setauthToken(items);
+    }
   }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/v1/frame/",  {
+        headers: {
+          "x-auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmY0ZjhiZjM4NmZjMmRiMTdjNDVlNzgiLCJ0eXBlIjoiQ1VTVE9NRVIiLCJpYXQiOjE2NjEzNDAyNTcsImV4cCI6MTY2MTM4NjI1N30.8g-9Cki6SPC8Ljq4tdTpph4ffh70mlF99poAHQCBEwA`,
+        },
+      })
+      
+      .then((res) => res.data)
+      .then((data) => {
+        setallFrames(data.frames);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const [frame, setframe] = useState("");
+  const [realframe, setrealframe] = useState('');
+
+  const frameChange = (framex) => {
+    console.log(framex)
+    setrealframe(framex);
+    
+  }
+  const handleImgRemove = (parameter) => {
+   const rem =  selectedImage.filter((item)=> item.name !== parameter )
+    setSelectedImage(rem)
+    
+    
+  }
+  
+
+  const hello = (key) => {
+
+     axios
+      .get(`http://localhost:5000/api/v1/frame/${key}`, {
+        headers: {
+          "x-auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmY0ZjhiZjM4NmZjMmRiMTdjNDVlNzgiLCJ0eXBlIjoiQ1VTVE9NRVIiLCJpYXQiOjE2NjEzNDAyNTcsImV4cCI6MTY2MTM4NjI1N30.8g-9Cki6SPC8Ljq4tdTpph4ffh70mlF99poAHQCBEwA`,
+        },
+      })
+      .then((res) => {
+        setframe(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      }, []);
+      return (
+      <>
+        <img width='70px' src={`http://localhost:5000/api/v1/frame/${key}`} />
+      </>
+    );
+  };
+
+
+  // =========================Add Address API =========================================
+  const [address, setaddress] = useState({
+
+  });
+  // useEffect(()=>())
+
+  const onCropComplete = React.useCallback(
+    (croppedArea, croppedAreaPixels) => {},
+    []
+  );
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -243,7 +284,10 @@ const Screen2Frame = () => {
         >
           <div className="screen_2_body_content">
             <div>
-              <AddIcon className="text-primary " style={{ fontSize: "100px" }} />
+              <AddIcon
+                className="text-primary "
+                style={{ fontSize: "100px" }}
+              />
             </div>
           </div>
           <div
@@ -259,102 +303,92 @@ const Screen2Frame = () => {
       )}
 
       {selectedImage.length !== 0 && (
-        <div>
-
-       
-       {
-              selectedImage.map((a)=>(
-        <div className="screen_2_body global_hover">
-          
-          <div className="screen_2_body_content">
-            
-            <button
-              className="btn-remove"
-              onClick={() => setSelectedImage([])}
-            >
-              <CancelIcon />
-            </button>
-
-            {selectedImage.length !== 0 && (
-              <div>
-             
-              <div className="section_2_img_frame">
+        <div className="container" style={{display:"flex" , justifyContent:"space-between", alignItems:"center", width:"80%", flexWrap:"wrap"}}  >
+          {selectedImage.map((a, i) => (
+            <div className="screen_2_body2 global_hover">
+              <div className="screen_2_body2_content">
                 
-                <div className="section_2_img_frame2">
-                  <Cropper
-                    image={URL.createObjectURL(a)}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1 / 1}
-                    onCropChange={setCrop}
-                    onCropComplete={onCropComplete}
-                    onZoomChange={setZoom}
-                  />
-                  {/* <img alt="please select the image" style={{overflow:"hidden", height:"auto", width:"100%" }} src={URL.createObjectURL(selectedImage)} /> */}
-                </div>
-                <br />
+                <button
+                  className="btn-remove"
+                  onClick={()=>handleImgRemove(a.name)}
+                  // onClick={() => setSelectedImage([])}
+                >
+                  <CancelIcon />
+                </button>
+
+                {selectedImage.length !== 0 && (
+                  <div>
+                    <img width='300px' style={{position:"absolute"}} src={`http://localhost:5000/api/v1/frame/${realframe}`} />
+                    <div className="section_2_img_frame">
+                      <div className="section_2_img_frame2">
+                        {/* <Cropper
+                          image={URL.createObjectURL(a)}
+                          crop={crop}
+                          zoom={zoom}
+                          aspect={1 / 1}
+                          onCropChange={setCrop}
+                          onCropComplete={onCropComplete}
+                          onZoomChange={setZoom}
+                        /> */}
+                        <img alt="please select the image" style={{overflow:"hidden", height:"auto", width:"100%" }} src={URL.createObjectURL(a)} />
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                )}
               </div>
-              
-             
-             </div>
-            )}
-            
-          </div>
-         
 
-
-          <div
-            style={{
-              bottom: "-85px",
-              position: "absolute",
-              textAlign: "center",
-            }}
-          ></div>
+              <div
+                style={{
+                  bottom: "-85px",
+                  position: "absolute",
+                  textAlign: "center",
+                }}
+              ></div>
+            </div>
+          ))}
         </div>
-         ))}
-          </div>
       )}
 
       {selectedImage.length !== 0 && (
         <div>
-          <button className="add_more_imgs"   >
-          {/* <AddIcon  /> */}
-          <input
-                type="file"
-                class="custom-file-input2"
-                onChange={(event) => {
-                  setSelectedImage([...selectedImage, event.target.files[0]]);
-                }}
-              />
-            
+          <button className="add_more_imgs">
+            {/* <AddIcon  /> */}
+            <input
+              type="file"
+              className="custom-file-input2"
+              onChange={(event) => {
+                setSelectedImage([...selectedImage, event.target.files[0]]);
+              }}
+            />
           </button>
         </div>
       )}
 
       {selectedImage.length === 0 && upload && (
         <div className="screen2_upload_section">
-          <div class="list-group  list_style">
-            <label class="list-group-item">
+          <div className="list-group  list_style">
+            <label className="list-group-item">
               <CameraAltIcon
                 className="text-primary mx-2 my-2"
                 fontSize="large"
               />
               <input
                 type="file"
-                class="custom-file-input"
+                className="custom-file-input"
                 onChange={(event) => {
                   setSelectedImage([...selectedImage, event.target.files[0]]);
                 }}
               />
             </label>
-            <label class="list-group-item">
+            <label className="list-group-item">
               <InstagramIcon
                 className="text-primary mx-2 my-2"
                 fontSize="large"
               />
               Import from Facebook
             </label>
-            <label class="list-group-item">
+            <label className="list-group-item">
               <FacebookIcon
                 className="text-primary mx-2 my-2"
                 fontSize="large"
@@ -369,24 +403,24 @@ const Screen2Frame = () => {
       {/* Select style btn */}
       {selectedImage.length !== 0 && upload && (
         <div className="screen_2_editing_section d-flex justify-content-between">
-          <div class="dropdown">
+          <div className="dropdown" onClick={() => setselectStyle(true)}>
             <button
-              class="btn  dropdown-toggle"
+              className="btn  dropdown-toggle"
               type="button"
               style={{ backgroundColor: "#FEFFFF" }}
             >
               <ImageIcon fontSize="medium" />{" "}
               <span
                 className="mx-2 fw-bold"
-                onClick={() => setselectStyle(true)}
+                
               >
                 Classic
               </span>
             </button>
           </div>
-          <div class="dropdown">
+          <div className="dropdown">
             <button
-              class="btn  dropdown-toggle"
+              className="btn  dropdown-toggle"
               type="button"
               style={{ backgroundColor: "#FEFFFF" }}
               onClick={() => setselectSize(true)}
@@ -411,10 +445,12 @@ const Screen2Frame = () => {
             </h6>
           </div>
           <div className="d-flex scroll_x ">
-            {filterArr.map((arr) => (
+            {allFrames.map((arr) => (
               <div className="text-center mt-3 mb-4 mx-4">
-                <div className="img_filter global_hover mb-1"></div>
-                <div className="fw-bold">{arr.key}</div>
+                <div className="img_filter global_hover mb-1" onClick={()=>frameChange(arr.frame)}  >
+                  {hello(arr.frame)}
+                </div>
+                <div className="fw-bold" style={{textTransform:"capitalize"}}>{arr.frameTitle}</div>
               </div>
             ))}
           </div>
@@ -433,7 +469,7 @@ const Screen2Frame = () => {
           </div>
 
           <div className="d-flex scroll_x ">
-            {sizesArr.map((arr) => (
+            {allFrameSizes.map((arr) => (
               <div
                 className="card mt-3 mb-3 text-primary global_hover"
                 style={{ width: "15rem", borderRadius: "0px" }}
@@ -445,12 +481,12 @@ const Screen2Frame = () => {
                 />
                 <div className="card-body">
                   <p
-                    class="card-text fw-bold"
+                    className="card-text fw-bold"
                     style={{ margin: "0", padding: "0" }}
                   >
                     {arr.size}
                   </p>
-                  <p class="card-text" style={{ margin: "0", padding: "0" }}>
+                  <p className="card-text" style={{ margin: "0", padding: "0" }}>
                     {arr.price} each, {arr.discount}{" "}
                     <del>${arr.price_actual}</del>
                   </p>
